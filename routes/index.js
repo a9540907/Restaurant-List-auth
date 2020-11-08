@@ -4,14 +4,16 @@ const router = express.Router()
 
 const home = require('./modules/home')
 const Restaurant = require('./modules/restaurants')
+const { authenticator } = require('../middleware/auth')
 const sort = require('./modules/sort')
 const users = require('./modules/users')
 
 
-router.use('/', home)
+
+router.use('/restaurants', authenticator, Restaurant)
 router.use('/users', users)
-router.use('/restaurants', Restaurant)
 router.use('/sort', sort)
+router.use('/', authenticator, home)
 
 
 // 匯出路由器
